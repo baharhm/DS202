@@ -1,0 +1,112 @@
+---
+title: 'homework 7'
+author: "Seyedehbahareh Hashemimovahed"
+output: html_document
+---
+
+Git: 
+https://github.com/baharhm/Homework-7
+https://rpubs.com/baharhm/1021508
+
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+```{r load-packages, include=FALSE}
+library(dplyr)
+library(magrittr)
+library(knitr)
+```
+```{r}
+library(productplots)
+
+```
+
+```{r}
+data(happy, package="productplots")
+head(happy)
+```
+```{r}
+HAPPY <- readRDS("data/HAPPY.rds")
+```
+
+
+1. Data cleaning: the values “IAP”, “DK” and “NA” all encode missing values. Replace all of these instances by the value NA.
+
+
+```{r}
+happy = replace(happy, happy == "IAP", NA)
+happy = replace(happy, happy == "DK", NA)
+happy = replace(happy, happy == "NA", NA)
+```
+
+
+2. Check the type of the variable and cast into the right type (factor variable for categorical variables). For age, change “89 OR OLDER” to 89 and assume the variable should be numeric.
+
+
+
+3. Bring all levels of factors into a sensible order. For marital you could e.g. order the levels according to average age.
+
+
+
+```{r}
+ happy <- happy %>% mutate(
+    degree = factor(tolower(degree)),
+    degree = factor(degree, levels=c("graduate school",
+                                      "bachelor",
+                                      "junior college",
+                                      "lt high school",
+                                      "high school"))
+  )%>% select(-degree)
+
+
+happy = happy %>% mutate(
+  happiness = factor(tolower(happy))
+  
+  )%>% select(-happy)
+
+
+happy = happy %>% mutate(
+  
+  finrela= factor(tolower(finrela)),
+  finrela = factor(finrela, levels=c("far above average",
+                                      "above average",
+                                     "average",
+                                      "below average",
+                                     "far below average"))
+  ) %>% select(-finrela)
+
+
+happy = happy %>% mutate(
+  health = factor(tolower(health)),
+   health = factor(health, levels=c("excellent",
+                                   "good",
+                                   "fair",
+                                   "poor"))
+)  %>% select(-health)
+
+happy = happy %>% mutate(
+  marital = factor(tolower(marital)),
+  sex = factor(tolower(sex)),
+  year = year,
+  age = age,
+  wtssall = wtssall,
+) %>% select(-sex, -marital, -year, -age, -wtssall)
+saveRDS(happy,"happy.rds")
+
+```
+
+
+Investigate the relationship between happiness and two other variables in the data. Find a visualization that captures the relationship and write a paragraph to describe it.
+
+
+Question: Fine the relation between happiness and age and marital status.
+
+
+```{r}
+
+```
+
