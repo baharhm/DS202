@@ -1,0 +1,51 @@
+---
+title: "hw9"
+output: html_document
+date: "2023-04-13"
+author: "Seyedehbahareh Hashemimovahed"
+---
+github: https://github.com/baharhm/practice4
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r cars}
+av <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/avengers/avengers.csv", stringsAsFactors = FALSE)
+av
+```
+Part one: Data tidying
+The avenger data consists of ten columns for each avenger called Death[1-5] to Return[1-5]
+
+Get the data into a format where the five columns for Death[1-5] are replaced by two columnes: Time, and Death. Time should be a number between 1 and 5 (look into the function parse_number); Death is a categorical variables with values “yes”, “no” and ““. Call the result deaths.
+
+Similarly, deal with the returns of characters.
+
+
+```{r}
+names(av) # columns
+av0 = av %>% filter(Name.Alias != "")
+av0 = av0 %>% filter(Name.Alias != "Vance Astrovik")
+av1 = av0 %>% gather(key = time, value = death, c(11, 13, 15, 17, 19)) %>%
+  select(Name.Alias, time, death) %>% 
+  mutate(time = parse_number(time))
+av2 = av0 %>% gather(key = time, value = return, c(12, 14, 16, 18, 20)) %>%
+  select(Name.Alias, time, return) %>%
+  mutate(time = parse_number(time))
+av.neat = left_join(av1, av2, by = c("Name.Alias", "time"))
+```
+
+
+
+Each team member picks one of the statements in the FiveThirtyEight analysis and fact checks it based on the data. Use dplyr functionality whenever possible.
+
+Statement:Iron Man, Hulk, Captain America, Thor, Hawkeye, Black Widow, Scarlet Witch, Quicksilver and The Vision have dies once in their time. 
+Answer:
+```{r}
+Aavnew = av.neat %>% filter(Name.Alias %in% c("Anthony Edward \"Tony\" Stark", "Steven Rogers", "Clinton Francis Barton", "Thor Odinson", "Natalia Alianovna Romanova", "Wanda Maximoff", "Pietro Maximoff", "Victor Shade (alias)", "Robert Bruce Banner") & death == "YES")
+head(Aavnew, 9)
+```
