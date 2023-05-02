@@ -1,0 +1,81 @@
+---
+title: "homework10"
+author: "Seyedehbahareh Hashemimovahed"
+date: "2023-04-25"
+output: html_document
+---
+repo link : https://github.com/baharhm/Homework10 
+https://rpubs.com/baharhm/1033205
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+
+```{r}
+acc <- read.csv("https://raw.githubusercontent.com/yumouqiu/DS202-Spring2023/main/Practice/data/fars2016/accident.csv")
+names(acc)
+```
+
+Part one: Accident data
+
+are there some days of the week where more accidents happen than on others (use variable DAY_WEEK)?
+It seems like more accidents happen on the weekend.  
+
+```{r}
+acc %>% group_by(DAY_WEEK) %>% tally()
+acc %>% ggplot(aes(x=DAY_WEEK)) +
+  geom_bar() +
+  ggtitle("Accidents by day_week") +
+  ylab("accident count")
+```
+
+
+
+
+what time of the day do accidents happen (use variable HOUR)?
+
+most accidents happen between 5-8 pm, specifically at 6 pm. 
+```{r}
+acc.hour = acc %>% filter(HOUR <= 24) %>% group_by(HOUR) %>% tally()
+acc.hour %>%
+  ggplot(aes(x=HOUR)) +
+  geom_bar(aes(weight = n)) +
+  ggtitle("Accidents by hour") + ylab("accident count")
+```
+
+what is the number of accidents with at least one drunk driver (use variable DRUNK_DR)?
+there are There are 8720 accidents with atleast one drunk driver 
+```{r}
+filter(acc, DRUNK_DR > 0) %>% summarize(n=n())
+```
+
+Part two: Connecting data
+
+Connect to the person table. Identify drivers (PER_TYP == 1, see fars manual ) and subset on them.
+
+```{r}
+person.table = read.csv("https://raw.githubusercontent.com/yumouqiu/DS202-Spring2023/main/Practice/data/fars2016/person.csv")
+person.table = person.table %>% filter(PER_TYP == 1)
+```
+
+
+
+Join accident and driver table (work out which variable(s) to use)
+```{r}
+person.table = person.table %>% filter(SEX == 1 | SEX == 2)
+acc.person = left_join(acc, person.table, by = c("ST_CASE", "HOUR", "MINUTE", "DAY", "MONTH"))
+```
+
+Tally the number of accidents by day of the week (DAY_WEEK), hour of the day (HOUR) and gender (SEX). Visualize the results!
+
+```{r}
+acc.person.tally = acc.person %>% group_by(DAY_WEEK, HOUR, SEX) %>% 
+  summarise(n = n())
+acc.person.tally = na.omit(acc.person.tally)
+acc.person.tally = acc.person.tally %>% filter(HOUR < 25)
+acc.person.tally %>% ggplot(aes(x = HOUR, y = n, color = SEX)) +
+  geom_point() + 
+  facet_wrap(~DAY_WEEK)
+```
