@@ -1,0 +1,112 @@
+---
+title: "hw5"
+author: "Seyedehbahareh Hashemimovahed"
+date: "2023-03-07"
+output: html_document
+---
+```{r}
+library(dplyr)
+```
+
+```{r}
+library(ggplot2)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Reading the Data from the URL:
+```{r}
+choco <- read.csv("https://ds202-at-isu.github.io/labs/data/choco.csv")
+head(choco)
+```
+
+
+##Question set I
+
+1.What is the overall number of chocolate bars rated?
+
+```{r}
+dim(choco)
+#there are 1852 chocolate bars rated.
+
+```
+
+2.How does the number of ratings depend on the year? Draw a bar chart of the number of reports?
+
+
+
+```{r}
+
+year = c(2006:2023)
+
+count = c()
+value = 1
+
+for (i in year){
+ 
+   count[value] = sum(choco$Review.Date == i)
+    value = value+1
+}
+
+choco_year = as.data.frame(cbind(year, count))
+ggplot(choco_year, aes(x=year, y= count)) + geom_bar(stat = 'identity')
+
+#ggplot2 i get the error: Error in ggplot2(choco_year, aes(x = year, y = number)) : 
+  #could not find function "ggplot2"
+  #i have made sure to install the package, but still get the same error.  
+#there is an increase in rating as time passes. 
+```
+
+##Question set II
+
+1.How are ratings distributed? Draw a histogram of ratings and describe it. Don’t forget to mention outliers, if there are any.
+
+
+```{r}
+ggplot(choco, aes(x = Rating))+geom_histogram()
+  #there seems to be an increase and the a decrease in the diagram with slight left scewed didtribution and outliers are 1 and 5 
+
+
+```
+2.Do ratings depend on the cocoa percentage of a chocolate bar?
+
+```{r}
+ggplot(choco, aes(x = Cocoa.Pct, y = Rating)) + geom_jitter()
+
+#from the chart, i dont think there is correlation between the cocoa % and ratings. 
+```
+
+3. How do ratings compare across different company locations? Focus on the three locations with the most ratings:
+
+
+```{r}
+top3 <- dplyr::filter(choco, Company.Location %in% c("U.S.A.", "France", "Canada"))
+
+ggplot(top3, aes(x = Company.Location, y = Rating)) +geom_boxplot()
+
+#there seems to be outliers for both USA and France, by location, the ratings in the U.S.A seems to be in the higher quartile, while in France is in the middle/median, and in Canada is in the lower quartile.  
+```
+
+##Your own question?
+
+Question: Is there a correlation between the bean origin and the Rating of the chocolate? 
+
+
+
+```{r}
+Manufacturer <- dplyr::filter(choco, Specific.Bean.Origin %in% c(Specific.Bean.Origin))
+
+ggplot(Manufacturer, aes(x = Specific.Bean.Origin, y = Rating)) +geom_boxplot() 
+
+
+ggplot(Manufacturer, aes(x = Specific.Bean.Origin, y = Rating)) +geom_jitter()
+
+#I dont think there is any correlation between the rating and the origin of the bean.  
+
+```
+
+
+##Workflow
+I created a GitHub Repository called DS 202 with my own account. Then created my rmarkdown file in RStudio. At first,  I coppied all the questions in the file, and Lableded them in order of the slides.  Then I answered question by question. I used https://rmarkdown.rstudio.com/ as my resource.  I was having issues with the ggplot2.  i googled how to fix it, and it seemed i needed to install the package and load it using library(ggplot2), but it still ot worked.After bunch od troubleshooting i figure it out.  Then I answered the rest of the questions.  The reason i chose a different chart for each question is because that type was the best way to answer the question. at the end,  I looked at the dataset http://flavorsofcacao.com/chocolate_database.html and i wondered if the location of the bean effects the rating at all or not.  which is when i came up with the question at the end. 

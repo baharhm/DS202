@@ -1,0 +1,330 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={hw5},
+  pdfauthor={Seyedehbahareh Hashemimovahed},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{hw5}
+\author{Seyedehbahareh Hashemimovahed}
+\date{2023-03-07}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{reading-the-data-from-the-url}{%
+\subsection{Reading the Data from the
+URL:}\label{reading-the-data-from-the-url}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{choco }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"https://ds202{-}at{-}isu.github.io/labs/data/choco.csv"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(choco)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Company Specific.Bean.Origin  REF Review.Date Cocoa.Pct Company.Location
+## 1 A. Morin          Agua Grande 1876        2016        63           France
+## 2 A. Morin                Kpime 1676        2015        70           France
+## 3 A. Morin               Panama 1011        2013        70           France
+## 4 A. Morin           Madagascar 1011        2013        70           France
+## 5 A. Morin               Brazil 1011        2013        70           France
+## 6 A. Morin             Equateur 1011        2013        70           France
+##   Rating Bean.Type Broad.Bean.Origin
+## 1   3.75                    Sao Tome
+## 2   2.75                        Togo
+## 3   2.75                      Panama
+## 4   3.00   Criollo        Madagascar
+## 5   3.25                      Brazil
+## 6   3.75                     Ecuador
+\end{verbatim}
+
+\#\#Question set I
+
+1.What is the overall number of chocolate bars rated?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dim}\NormalTok{(choco)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1852    9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#there are 1852 chocolate bars rated.}
+\end{Highlighting}
+\end{Shaded}
+
+2.How does the number of ratings depend on the year? Draw a bar chart of
+the number of reports?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{year }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{2006}\SpecialCharTok{:}\DecValTok{2023}\NormalTok{)}
+
+\NormalTok{count }\OtherTok{=} \FunctionTok{c}\NormalTok{()}
+\NormalTok{value }\OtherTok{=} \DecValTok{1}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ year)\{}
+ 
+\NormalTok{   count[value] }\OtherTok{=} \FunctionTok{sum}\NormalTok{(choco}\SpecialCharTok{$}\NormalTok{Review.Date }\SpecialCharTok{==}\NormalTok{ i)}
+\NormalTok{    value }\OtherTok{=}\NormalTok{ value}\SpecialCharTok{+}\DecValTok{1}
+\NormalTok{\}}
+
+\NormalTok{choco\_year }\OtherTok{=} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(year, count))}
+\FunctionTok{ggplot}\NormalTok{(choco\_year, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{year, }\AttributeTok{y=}\NormalTok{ count)) }\SpecialCharTok{+} \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{\textquotesingle{}identity\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{HW5_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#ggplot2 i get the error: Error in ggplot2(choco\_year, aes(x = year, y = number)) : }
+  \CommentTok{\#could not find function "ggplot2"}
+  \CommentTok{\#i have made sure to install the package, but still get the same error.  }
+\CommentTok{\#there is an increase in rating as time passes. }
+\end{Highlighting}
+\end{Shaded}
+
+\#\#Question set II
+
+1.How are ratings distributed? Draw a histogram of ratings and describe
+it. Don't forget to mention outliers, if there are any.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(choco, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Rating))}\SpecialCharTok{+}\FunctionTok{geom\_histogram}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\includegraphics{HW5_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{\#there seems to be an increase and the a decrease in the diagram with slight left scewed didtribution and outliers are 1 and 5 }
+\end{Highlighting}
+\end{Shaded}
+
+2.Do ratings depend on the cocoa percentage of a chocolate bar?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(choco, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Cocoa.Pct, }\AttributeTok{y =}\NormalTok{ Rating)) }\SpecialCharTok{+} \FunctionTok{geom\_jitter}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{HW5_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#from the chart, i dont think there is correlation between the cocoa \% and ratings. }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  How do ratings compare across different company locations? Focus on
+  the three locations with the most ratings:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{top3 }\OtherTok{\textless{}{-}}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(choco, Company.Location }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"U.S.A."}\NormalTok{, }\StringTok{"France"}\NormalTok{, }\StringTok{"Canada"}\NormalTok{))}
+
+\FunctionTok{ggplot}\NormalTok{(top3, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Company.Location, }\AttributeTok{y =}\NormalTok{ Rating)) }\SpecialCharTok{+}\FunctionTok{geom\_boxplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{HW5_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#there seems to be outliers for both USA and France, by location, the ratings in the U.S.A seems to be in the higher quartile, while in France is in the middle/median, and in Canada is in the lower quartile.  }
+\end{Highlighting}
+\end{Shaded}
+
+\#\#Your own question?
+
+Question: Is there a correlation between the bean origin and the Rating
+of the chocolate?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Manufacturer }\OtherTok{\textless{}{-}}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(choco, Specific.Bean.Origin }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(Specific.Bean.Origin))}
+
+\FunctionTok{ggplot}\NormalTok{(Manufacturer, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Specific.Bean.Origin, }\AttributeTok{y =}\NormalTok{ Rating)) }\SpecialCharTok{+}\FunctionTok{geom\_boxplot}\NormalTok{() }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{HW5_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(Manufacturer, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Specific.Bean.Origin, }\AttributeTok{y =}\NormalTok{ Rating)) }\SpecialCharTok{+}\FunctionTok{geom\_jitter}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{HW5_files/figure-latex/unnamed-chunk-9-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#I dont think there is any correlation between the rating and the origin of the bean.  }
+\end{Highlighting}
+\end{Shaded}
+
+\#\#Workflow I created a GitHub Repository called DS 202 with my own
+account. Then created my rmarkdown file in RStudio. At first, I coppied
+all the questions in the file, and Lableded them in order of the slides.
+Then I answered question by question. I used
+\url{https://rmarkdown.rstudio.com/} as my resource. I was having issues
+with the ggplot2. i googled how to fix it, and it seemed i needed to
+install the package and load it using library(ggplot2), but it still ot
+worked.After bunch od troubleshooting i figure it out. Then I answered
+the rest of the questions. The reason i chose a different chart for each
+question is because that type was the best way to answer the question.
+at the end, I looked at the dataset
+\url{http://flavorsofcacao.com/chocolate_database.html} and i wondered
+if the location of the bean effects the rating at all or not. which is
+when i came up with the question at the end.
+
+\end{document}
