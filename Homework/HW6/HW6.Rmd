@@ -1,0 +1,97 @@
+---
+title: 'Homework #6'
+author: "Seyedehbahareh Hashemimovahed"
+date: "3/11/2023"
+output: html_document
+---
+```{r}
+data(tips, package="reshape2")
+library(reshape2)
+library(ggplot2)
+library(dplyr)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tips at Restaurants
+#### Due: 3/20/2023 before 11:59pm. Submit in Canvas (file upload).
+
+In this homework we will use the `tips` data set. THis data set is part of the `reshape2` package. You can load the data set by executing the command:
+```{r}
+data(tips, package="reshape2")
+
+```
+The information contained in the data is collected by one waiter, who recorded over the course of a season information about each tip he received working in one restaurant. See `?tips` for a description of all of the variables. 
+
+1. Download the RMarkdown file with these homework instructions to use as a template for your work.
+Make sure to replace "Your Name" in the YAML with your name.
+2.  How many parties did the waiter serve? What type are the variables that he collected? Show your code. 
+```{r}
+str(tips)
+```
+
+The waiter served 244 parties. we have 7 variables, Factor: sex, smoker, day, time and Integer: Size. 
+
+
+3. Creat a new variable `size.factor` which tranlates the variable `size` to a factor. Should `size` be a factor or a numerical variable? Give your reasonings.
+```{r}
+tips$size.factor <- as.factor(tips$size)
+
+```
+Size should be numberical, because factor stores the data and stores it as level.  but the size could have multiple enteries, and reading data will not be easy if it is in factor.  
+
+4. How does the tipping amount (`tip`) depend on the overall bill (`total_bill`)? Use the `ggplot2` package to show a chart, describe the relationship in words. Describe at least two types of anomalies in the plot. What do they mean? 
+
+```{r}
+ggplot(tips, aes(x=total_bill, y = tip)) + geom_point()
+```
+
+There is a linear relation between bill and tips. the higher the bill, the higher the tip. 
+
+
+5. Introduce a variable `tiprate` into the data set, that incorporates the rate of tips. What information is available for the best tipper, what for the worst? What is the average rate for tips?
+```{r}
+tips$tiprate <- tips$tip/tips$total_bill
+filter(tips, tiprate==max(tips$tiprate))
+filter(tips, tiprate==min(tips$tiprate))
+mean(tips$tiprate)
+```
+
+best tipper is a male has with total bill of 7.25 and tip of 5.15 on sunday dinner with tip rate of 0.710344. 
+
+worst tipper is a male with total bill of 32.83 and tip of 1.17 on Saturday dinner with tip rate of 0.03563814.
+
+there is a average tip rate of 0.1608026 ~ 16%
+
+
+
+
+6. How does smoking behavior and gender of the person who pays impact the  relationship between tip and total bill? Find a visualization that incorporates all four variables. Interpret the result.
+```{r}
+ggplot(data=tips, aes(x=total_bill, y=tip)) + geom_point() +facet_grid(smoker~sex)
+
+```
+
+there is a linear relation between the tip amount and total bill for nonsmokers with higher correlation for females.
+
+
+7. Use ggplot2 to find a graphical summary of the relationship between day of the week and gender of the person paying the bill. What can you say about this relationship?
+```{r}
+ggplot(tips, aes(x=day, fill=sex)) + geom_bar(position="fill")
+```
+
+on friday and thursday we can see that both male and female are paying equally.  but on saturday and sunday male is paying more than female. 
+
+
+8. Use ggplot2 to make a boxplot of the `tiprate` on different days. Rank the levels of `day` by the average of the `tiprate`. What can you say about this relationship?
+
+```{r}
+ggplot(tips, aes(x=day, y=tiprate)) + geom_boxplot()
+```
+
+on fridays and thursdays, we can see that the tiprate is in the lower quartile, while in saturday is in the middle, and on sunday is in the higher.  .  we also have outliers on saturday and sunday. 
+Note: your submission is supposed to be fully reproducible, i.e. the TA and I will 'knit' your submission in RStudio. 
+
+For the submission: submit your solution in an **R Markdown file** and (just for insurance) submit the **corresponding html (or Word)** file with it. 
