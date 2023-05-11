@@ -31,11 +31,29 @@ Please use Github to collaborate on this problem. For example, one member can cr
 df <- read.csv("gapminder-5060.csv")
 ```
 
+
+#####Canada (Commit by Bahar)
+```{r}
+Canada <- df[(df$country == "Canada"),]
+Canada <- Canada %>% mutate(lifeExp = replace(lifeExp, year == 1957, 69.96))
+ggplot(data = Canada, aes(x = lifeExp, y = gdpPercap)) +
+  geom_line()
+```
+
+
+#####Australia (Commit by Bahar)
+```{r}
+data1 <- read.csv("gapminder-5060.csv")
+Australia <- data1[(data1$country=="Australia"),]
+ggplot(data = Australia, aes(x = lifeExp, y = gdpPercap)) +
+  geom_point()
+```  
+
+
 #####US (Commit,push done by Bahar)
 ```{r}
-data<-data[(data$country=="United States"),]
-ggplot(data = data, aes(x = lifeExp, y = gdpPercap)) +
-  geom_point()
+US <- df[(df$country=="United States"),]
+ggplot(data = US, aes(x = lifeExp, y = gdpPercap)) +geom_point()
 ```
 
 3. Write a paragraph (~200 words) describing an example of what you consider data science. Write your paragraph in R Markdown. Include at least 
