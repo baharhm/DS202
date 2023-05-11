@@ -9,6 +9,12 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r load-packages, include=FALSE}
+library(dplyr)
+library(magrittr)
+library(knitr)
+library(ggplot2)
+```
 #### Due: 2/17/2022 before 11:59pm. Submit in Canvas (file upload).
 
 1. Finish the in-class practice in Slides 3-12 in "Lecture 2-2-Practice for git", link: https://yumouqiu.github.io/DS202-Spring2023/Practice/practice01.html  
@@ -29,15 +35,15 @@ Please use Github to collaborate on this problem. For example, one member can cr
 ```{r}
 # read data 
 df <- read.csv("gapminder-5060.csv")
+head(df)
 ```
 
 
 #####Canada (Commit by Bahar)
 ```{r}
 Canada <- df[(df$country == "Canada"),]
-Canada <- Canada %>% mutate(lifeExp = replace(lifeExp, year == 1957, 69.96))
-ggplot(data = Canada, aes(x = lifeExp, y = gdpPercap)) +
-  geom_line()
+Canada <- Canada %>% mutate(lifeExp = replace(lifeExp, year == 1957,69.96))
+ggplot(data = Canada, aes(x = lifeExp, y = gdpPercap)) +geom_line()
 ```
 
 
@@ -60,6 +66,14 @@ ggplot(data = US, aes(x = lifeExp, y = gdpPercap)) +geom_point()
     a. one link to a chart or an image and 
     b. at least one itemized or enumerated list.
     
+Data science is an interdisciplinary field that applies statistical, computational, and machine learning techniques to extract insights from data. One example of data science is analyzing climate change data to understand how human activities are impacting the environment. Scientists can collect data on a variety of factors, including carbon dioxide levels, temperature, and precipitation, and use statistical models to identify patterns and trends over time. This information can be used to make predictions about future climate change and inform policy decisions to mitigate its impact. A chart that could be used to visualize this type of data is a time series line graph, which plots changes in a particular variable over time. This graph could show how the concentration of carbon dioxide in the atmosphere has increased over the past few decades, providing visual evidence of the impact of human activities on the environment. An itemized list of steps involved in analyzing climate change data might include:
+
+
+https://climate.nasa.gov/vital-signs/global-temperature/
+https://climatedata.imf.org/pages/climatechange-data
+https://climatedata.imf.org/datasets/4063314923d74187be9596f10d034914/explore
+
+
 
 Note: your submission is supposed to be fully reproducible, i.e. the TA and I will 'knit' your submission in RStudio. Including the link to the image is the tricky part here. Make sure that you don't use any file structure that depends on your computing environment.
 
