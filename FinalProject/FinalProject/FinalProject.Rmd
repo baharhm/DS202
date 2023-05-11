@@ -1,0 +1,151 @@
+---
+title: "Final Project"
+author: "Seyedehbahareh Hashemimovahed"
+date: "2023-05-10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggplot2)
+library(plyr)
+library(matrixStats)
+library(plotly)
+```
+
+
+
+### NFL Divisional and None-Divisional Game Analysis Project
+#### We are comparing the Divisional and Non-devisional games in NFL and finding out if divisional games have a different total final scores and points. 
+
+
+##### First, we will be reading the datasets provided to us 
+
+```{r}
+#Read the data
+nfl_scores <- read.csv('spreadspoke_scores.csv')
+nfl_scores <- drop_na(nfl_scores)
+nfl_scores <- filter(nfl_scores, schedule_season >= 2002)
+
+nfl_teams <- read.csv('nfl_teams.csv')
+nfl_teams <- select(nfl_teams, team_name, team_division)
+```
+
+##### Now we will be Merging the tables scores and team information to get the division of each team for each game.
+
+```{r}
+nfl_data <- merge(x = nfl_scores, y = nfl_teams, by.x = 'team_home', by.y = 'team_name', all.x = TRUE)
+nfl_data <- rename(nfl_data, team_division_home = team_division)
+nfl_data <- merge(x = nfl_data, y = nfl_teams, by.x = 'team_away', by.y = 'team_name', all.x = TRUE)
+nfl_data <- rename(nfl_data, team_division_away = team_division)
+```
+
+##### We need to fix the data by filling in the missing values for Cities.
+
+```{r}
+A <- filter(nfl_data, team_away == 'Las Vegas Raiders')
+A$team_division_away <- 'AFC West'
+B <- filter(nfl_data, team_away == 'St. Louis Rams')
+B$team_division_away <- 'NFC West'
+C <- filter(nfl_data, team_home == 'St. Louis Rams')
+nfl_data <- filter(nfl_data, team_away != 'Las Vegas Raiders')
+nfl_data <- filter(nfl_data, team_away != 'St. Louis Rams')
+nfl_data <- filter(nfl_data, team_home != 'St. Louis Rams')
+nfl_data <- rbind(nfl_data, A, B, C)
+```
+
+##### Here, we are finding the point difference between teams at end of each game and get total for divisional games. 
+
+```{r}
+nfl_data <- mutate(nfl_data, pd = abs(score_home-score_away))
+nfl_data <- mutate(nfl_data, total = score_home + score_away)
+nfl_data <- mutate(nfl_data, divisional_game = ifelse(team_division_home == team_division_away, TRUE, FALSE))
+
+head(nfl_data,10)
+```
+
+###Question 1 
+####Are point differentials different for divisional games vs non-divisional?
+###Expectation
+####point differentials usually don't differ in divisonal games vs non-divisonal games
+
+```{r}
+df1 <- nfl_data %>%
+  group_by(divisional_game) %>%
+  summarize(mean_point_diff = mean(abs(score_home - score_away)))
+summary(df1)
+
+df1 <- lm(pd~divisional_game, data = nfl_data)
+
+summary(df1)
+
+# Create a box plot of point differentials by game type
+
+ggplot(nfl_data, aes(x = divisional_game, y = abs(score_home - score_away))) +
+  geom_boxplot() +
+  labs(x = "Divisional Game", y = "Point Differential")
+
+ggplot(nfl_data, aes(x = divisional_game, y = abs(score_home - score_away))) +
+  geom_point() +
+  labs(x = "Divisional Game", y = "Point Differential")
+```
+
+###Question 2
+####Are spreads diferent for divisional games?
+###Expectation
+####divisional games have a lower spreads.
+```{r}
+df2 <- nfl_data %>%
+  group_by(divisional_game) %>%
+  summarize(mean_spread = mean(abs(score_home - score_away) - abs(spread_favorite)))
+summary(df2)
+
+
+df2 <- lm(spread_favorite~divisional_game, data = nfl_data)
+summary(df2)
+
+ggplot(nfl_data, aes(x = divisional_game, y = abs(score_home - score_away) - abs(spread_favorite))) +
+  geom_boxplot() +
+  labs(x = "Divisional Game", y = "Spread Differential")
+
+
+```
+
+
+###Question 3
+####Are game totals different for divisional games?
+###Expectation
+####yes, divisional games have 1.6 points diffrence and lower totals than non-divisional games. 
+```{r}
+
+df3 <- nfl_data %>%
+  group_by(divisional_game) %>%
+  summarize(mean_game_total = mean(score_home + score_away))
+summary(df3)
+
+df3 <- lm(total~divisional_game, data = nfl_data)
+summary(df3)
+
+ggplot(nfl_data, aes(x = divisional_game, y = score_home + score_away)) +
+  geom_boxplot() +
+  labs(x = "Divisional Game", y = "Game Total")
+
+```
+
+
+###Question 4
+####Are over/under lines diferent for divisional games
+###Expectation
+#####divisional games have a lower over_unders compared to none_divisional games.
+```{r}
+df4 <- nfl_data %>%
+  group_by(divisional_game) %>%
+  summarize(mean_over_under = mean(over_under_line))
+
+summary(df4)
+df4 <- lm(over_under_line~divisional_game, data = nfl_data)
+summary(df4)
+```
+#### Conclusion: 
+##### It seems that the point spread between the divisional and none-devisional games for NFL games are lower for Divisional matchups.   
