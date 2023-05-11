@@ -1,16 +1,20 @@
 ---
 title: 'Homework #4'
-author: "Your Name"
+author: "Seyedehbahareh Hashemimovahed"
 date: "2/27/2022"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(tidyverse)
 ```
 
 ## Cars and mileage
 #### Due: 2/27/2022 before 11:59pm. Submit in Canvas (file upload).
+
+https://github.com/baharhm/DS202/tree/main/Homework/HW4
 
 In this homework we will use the `mpg` data set, you can access the data by loading the package `ggplot2` into your R session by executing the command 
 `library(ggplot2)`. The `mpg` data includes information about fuel economy of popular car models
@@ -19,19 +23,53 @@ for the years 1999 and 2008 as collected by the US Environmental Protection Agen
 
 Most exercises are from the ggplot2 book section 2.2.1. You might find it helpful for working on the homework to read through this section.
 
+```{r}
+head(mpg)
+```
+
 1. Download the RMarkdown file with these homework instructions to use as a template for your work.
 Make sure to replace "Your Name" in the YAML with your name.
+
+
 2.  List five functions that you could use to get more information about the
 mpg dataset.
+
+```{r}
+head(mpg) #allows us to vie the objects in the data 
+colnames(mpg) #gives us the name of Columns in the mpg dataset
+unique(mpg[c("cty")]) #Get the different city that are in datasets
+summary(mpg) #gives us a info summary of the datasets
+filter(mpg, year == 1999) #we can filter out data based on the condition. 
+```
 3. Using the `ggplot2` package create a scatterplot of `hwy` and `cty` and describe the relationship. Why are there so few points visible? Use a geom that helps reduce the amount of overplotting in the scatterplot. (Try ```?geom_jitter```)
+
+```{r}
+# from the plot we can see they are correlating as one increases so does the other one. 
+ggplot(data = mpg, aes(x = hwy, y = cty)) + geom_jitter()
+```
 4. Apart from the US, most countries use fuel consumption (fuel consumed
 over fixed distance) rather than fuel economy (distance traveled with fixed
 amount of fuel). How could you convert `cty` and `hwy` into the European
 standard of liter/100 km? Introduce corresponding variables into the `mpg` data.
+```{r}
+# Miles to KM we need to divide 235.21 by the number of miles per gallon
+mpg$cty.convert = 235.21 / mpg$cty
+mpg$hwy.convert = 235.21 / mpg$hwy
+```
+
 5.  Are cars in 2008 more fuel efficient than cars in 1999? Expand on your answer in (3) for a visual approach to this question. Note: you are not asked to find numeric answers. Instead, interpret plots. 
 6. Use the `ggplot2` package to create  side-by-side boxplots of `cty` by `class`. Describe the relationship in 2-3 sentences. 
 Change the label for the y-axis to 'city miles per gallon' (see ```?ylab```).  
 
+```{r}
+#it seems that the cars in 2008 have better efficiency compare to 1999.  there is more dots in lower parts for 1999 and for 2008 there is more dots focused in higher levels.
+mpg_2008 = filter(mpg, year == 2008)
+mpg_1999 = filter(mpg, year == 1999)
+
+mpg_2008 %>% ggplot(aes(x = cty, y = hwy)) + geom_jitter() + ggtitle("Fuel Efficiency of Cars in 2008")
+
+mpg_1999 %>% ggplot(aes(x = cty, y = hwy)) + geom_jitter() + ggtitle("Fuel Efficiency of Cars in 1999")
+```
 
 Note: your submission is supposed to be fully reproducible, i.e. the TA and I will 'knit' your submission in RStudio. 
 
