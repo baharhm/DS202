@@ -1,6 +1,6 @@
 ---
 title: 'Homework 3'
-author: "Your Name"
+author: "Seyedehbahareh Hashemimovahed"
 date: "2/10/2022"
 output: html_document
 ---
@@ -18,8 +18,19 @@ the number of successful pull requests you made, and the github repository to wh
 the number of pull requests you accepted, and the github repository from which you accepted.  
     c. Write down a list with at least 3 tips of how to make working with git/github easier  
 
+####  a. Team Members:  Seyedehbahareh Hashemimovahed
+####  b. Repo Link: https://github.com/baharhm/DS202
+####  b. Homework Link: https://github.com/baharhm/DS202/tree/main/Homework/HW3
+####  c. Useful Git tips:  1. Commit frequently 2. Use brancing effectivly. 3. Do not commit code that does not work.  4. Always watch out for merge to avoid merge conflict. 5. dont forget git add * with your commits,  6. git status can tell you whats going on with your current Git situation.7. Always commit pull push,  
+                          
 2. Generate the graph of LifExp vs. gdpPercap for US, Canada (fixed data) and Australia by RMarkdown based on the data set "gapminder-5060", like what we did in the class.  
 Please use Github to collaborate on this problem. For example, one member can create the plot of US in his/her repository. The other member will fork this repository, add the result for the second country, and make a pull request for merging into the main repository. Each member should at least analyze one country and make at least one pull request. **Please submit the RMarkdown file, the output file, and the screen shot of the successful pull request and the merge.**
+
+```{r}
+# read data 
+df <- read.csv("gapminder-5060.csv")
+```
+
 
 3. Write a paragraph (~200 words) describing an example of what you consider data science. Write your paragraph in R Markdown. Include at least 
     a. one link to a chart or an image and 
